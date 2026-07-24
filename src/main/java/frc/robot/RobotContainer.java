@@ -8,6 +8,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -133,9 +134,9 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> -controller.getLeftY(),
-            () -> -controller.getLeftX(),
-            () -> -controller.getRightX()));
+            () -> MathUtil.applyDeadband(-controller.getLeftY(), 0.05),
+            () -> MathUtil.applyDeadband(-controller.getLeftX(), 0.05),
+            () -> MathUtil.applyDeadband(-controller.getRightX(), 0.05)));
 
     // Lock to 0° when A button is held
     controller
