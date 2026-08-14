@@ -32,10 +32,12 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -49,6 +51,39 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
+  private static double driveKP = TunerConstants.FrontLeft.DriveMotorGains.kP;
+  private static double driveKI = TunerConstants.FrontLeft.DriveMotorGains.kI;
+  private static double driveKD = TunerConstants.FrontLeft.DriveMotorGains.kD;
+  private static double driveKs = TunerConstants.FrontLeft.DriveMotorGains.kS;
+
+  public void initSendable(SendableBuilder builder) {
+    builder.setSmartDashboardType("DrivePID");
+    builder.addDoubleProperty(
+        "P",
+        this::getP,
+        (double p) -> {
+          setPIDS(p, driveKI, driveKD, driveKs);
+        });
+    builder.addDoubleProperty(
+        "I",
+        this::getI,
+        (double i) -> {
+          setPIDS(driveKP, i, driveKD, driveKs);
+        });
+    builder.addDoubleProperty(
+        "D",
+        this::getD,
+        (double d) -> {
+          setPIDS(driveKP, driveKI, d, driveKs);
+        });
+    builder.addDoubleProperty(
+        "S",
+        this::getS,
+        (double s) -> {
+          setPIDS(driveKP, driveKI, driveKD, s);
+        });
+  }
+
   // TunerConstants doesn't include these constants, so they are declared locally
   static final double ODOMETRY_FREQUENCY = TunerConstants.kCANBus.isNetworkFD() ? 250.0 : 100.0;
   public static final double DRIVE_BASE_RADIUS =
@@ -136,6 +171,8 @@ public class Drive extends SubsystemBase {
         (targetPose) -> {
           Logger.recordOutput("Odometry/TrajectorySetpoint", targetPose);
         });
+
+    SmartDashboard.putData("DrivePID", this);
 
     // Configure SysId
     sysId =
@@ -355,5 +392,33 @@ public class Drive extends SubsystemBase {
       new Translation2d(TunerConstants.BackLeft.LocationX, TunerConstants.BackLeft.LocationY),
       new Translation2d(TunerConstants.BackRight.LocationX, TunerConstants.BackRight.LocationY)
     };
+  }
+
+  // set PID values
+  public double getP() {
+    return driveKP;
+  }
+
+  public double getI() {
+    return driveKI;
+  }
+
+  public double getD() {
+    return driveKD;
+  }
+
+  public double getS() {
+    return driveKs;
+  }
+
+  public void setPIDS(double p, double i, double d, double s) {
+    driveKD = d;
+    driveKI = i;
+    driveKP = p;
+    driveKs = s;
+
+    for (var module : modules) {
+      module.setPIDS(p, i, d, s);
+    }
   }
 }

@@ -46,4 +46,7 @@ public interface ModuleIO {
 
   /** Run the turn motor to the specified rotation. */
   public default void setTurnPosition(Rotation2d rotation) {}
+
+  // set PID values
+  public default void setDrivePIDS(double p, double i, double d, double s) {}
 }
