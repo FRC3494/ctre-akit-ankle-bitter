@@ -138,4 +138,9 @@ public class Module {
   public double getFFCharacterizationVelocity() {
     return Units.radiansToRotations(inputs.driveVelocityRadPerSec);
   }
+
+  // feed PID values to io
+  public void setPIDS(double p, double i, double d, double s) {
+    io.setDrivePIDS(p, i, d, s);
+  }
 }
