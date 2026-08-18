@@ -144,7 +144,7 @@ public class TunerConstants {
   private static final int kFrontLeftDriveMotorId = 1;
   private static final int kFrontLeftSteerMotorId = 3;
   private static final int kFrontLeftEncoderId = 40;
-  private static final Angle kFrontLeftEncoderOffset = Rotations.of(0.400390625);
+  private static final Angle kFrontLeftEncoderOffset = Rotations.of(0.399169921875);
   private static final boolean kFrontLeftSteerMotorInverted = false;
   private static final boolean kFrontLeftEncoderInverted = false;
 
@@ -155,7 +155,7 @@ public class TunerConstants {
   private static final int kFrontRightDriveMotorId = 18;
   private static final int kFrontRightSteerMotorId = 16;
   private static final int kFrontRightEncoderId = 41;
-  private static final Angle kFrontRightEncoderOffset = Rotations.of(-0.44970703125);
+  private static final Angle kFrontRightEncoderOffset = Rotations.of(-0.45166015625);
   private static final boolean kFrontRightSteerMotorInverted = false;
   private static final boolean kFrontRightEncoderInverted = false;
 
@@ -166,7 +166,7 @@ public class TunerConstants {
   private static final int kBackLeftDriveMotorId = 30;
   private static final int kBackLeftSteerMotorId = 2;
   private static final int kBackLeftEncoderId = 42;
-  private static final Angle kBackLeftEncoderOffset = Rotations.of(0.176025390625);
+  private static final Angle kBackLeftEncoderOffset = Rotations.of(0.17578125);
   private static final boolean kBackLeftSteerMotorInverted = false;
   private static final boolean kBackLeftEncoderInverted = false;
 
@@ -177,7 +177,7 @@ public class TunerConstants {
   private static final int kBackRightDriveMotorId = 19;
   private static final int kBackRightSteerMotorId = 17;
   private static final int kBackRightEncoderId = 43;
-  private static final Angle kBackRightEncoderOffset = Rotations.of(0.28076171875);
+  private static final Angle kBackRightEncoderOffset = Rotations.of(0.279052734375);
   private static final boolean kBackRightSteerMotorInverted = false;
   private static final boolean kBackRightEncoderInverted = false;
 
