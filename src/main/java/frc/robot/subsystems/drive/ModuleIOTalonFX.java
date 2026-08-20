@@ -272,7 +272,8 @@ public class ModuleIOTalonFX implements ModuleIO {
             .withKP(p)
             .withKI(i)
             .withKD(d)
-            .withKS(s).withKV(v)
+            .withKS(s)
+            .withKV(v)
             .withStaticFeedforwardSign(StaticFeedforwardSignValue.UseVelocitySign);
     tryUntilOk(5, () -> driveTalon.getConfigurator().apply(config, 0.25));
   }

@@ -89,7 +89,6 @@ public class Drive extends SubsystemBase {
         (double v) -> {
           setPIDF(driveKp, driveKi, driveKd, driveKs, v);
         });
-      
   }
 
   // TunerConstants doesn't include these constants, so they are declared locally
