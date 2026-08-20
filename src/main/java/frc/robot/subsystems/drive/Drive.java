@@ -51,9 +51,9 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
-  private static double driveKP = TunerConstants.FrontLeft.DriveMotorGains.kP;
-  private static double driveKI = TunerConstants.FrontLeft.DriveMotorGains.kI;
-  private static double driveKD = TunerConstants.FrontLeft.DriveMotorGains.kD;
+  private static double driveKp = TunerConstants.FrontLeft.DriveMotorGains.kP;
+  private static double driveKi = TunerConstants.FrontLeft.DriveMotorGains.kI;
+  private static double driveKd = TunerConstants.FrontLeft.DriveMotorGains.kD;
   private static double driveKs = TunerConstants.FrontLeft.DriveMotorGains.kS;
   private static double driveKv = TunerConstants.FrontLeft.DriveMotorGains.kV;
 
@@ -63,31 +63,31 @@ public class Drive extends SubsystemBase {
         "DriveKp",
         this::getP,
         (double p) -> {
-          setPIDF(p, driveKI, driveKD, driveKs, driveKv);
+          setPIDF(p, driveKi, driveKd, driveKs, driveKv);
         });
     builder.addDoubleProperty(
         "DriveKi",
         this::getI,
         (double i) -> {
-          setPIDF(driveKP, i, driveKD, driveKs, driveKv);
+          setPIDF(driveKp, i, driveKd, driveKs, driveKv);
         });
     builder.addDoubleProperty(
         "DriveKd",
         this::getD,
         (double d) -> {
-          setPIDF(driveKP, driveKI, d, driveKs, driveKv);
+          setPIDF(driveKp, driveKi, d, driveKs, driveKv);
         });
     builder.addDoubleProperty(
         "DriveKs",
         this::getS,
         (double s) -> {
-          setPIDF(driveKP, driveKI, driveKD, s, driveKv);
+          setPIDF(driveKp, driveKi, driveKd, s, driveKv);
         });
     builder.addDoubleProperty(
         "DriveKv",
         this::getV,
         (double v) -> {
-          setPIDF(driveKP, driveKI, driveKD, driveKs, v);
+          setPIDF(driveKp, driveKi, driveKd, driveKs, v);
         });
       
   }
@@ -404,15 +404,15 @@ public class Drive extends SubsystemBase {
 
   // set PID values
   public double getP() {
-    return driveKP;
+    return driveKp;
   }
 
   public double getI() {
-    return driveKI;
+    return driveKi;
   }
 
   public double getD() {
-    return driveKD;
+    return driveKd;
   }
 
   public double getS() {
@@ -424,9 +424,9 @@ public class Drive extends SubsystemBase {
   }
 
   public void setPIDF(double p, double i, double d, double s, double v) {
-    driveKD = d;
-    driveKI = i;
-    driveKP = p;
+    driveKd = d;
+    driveKi = i;
+    driveKp = p;
     driveKs = s;
     driveKv = v;
 
