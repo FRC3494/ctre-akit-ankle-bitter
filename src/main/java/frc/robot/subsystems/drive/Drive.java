@@ -55,33 +55,41 @@ public class Drive extends SubsystemBase {
   private static double driveKI = TunerConstants.FrontLeft.DriveMotorGains.kI;
   private static double driveKD = TunerConstants.FrontLeft.DriveMotorGains.kD;
   private static double driveKs = TunerConstants.FrontLeft.DriveMotorGains.kS;
+  private static double driveKv = TunerConstants.FrontLeft.DriveMotorGains.kV;
 
   public void initSendable(SendableBuilder builder) {
-    builder.setSmartDashboardType("DrivePID");
+    builder.setSmartDashboardType("Drive");
     builder.addDoubleProperty(
-        "P",
+        "DriveKp",
         this::getP,
         (double p) -> {
-          setPIDS(p, driveKI, driveKD, driveKs);
+          setPIDF(p, driveKI, driveKD, driveKs, driveKv);
         });
     builder.addDoubleProperty(
-        "I",
+        "DriveKi",
         this::getI,
         (double i) -> {
-          setPIDS(driveKP, i, driveKD, driveKs);
+          setPIDF(driveKP, i, driveKD, driveKs, driveKv);
         });
     builder.addDoubleProperty(
-        "D",
+        "DriveKd",
         this::getD,
         (double d) -> {
-          setPIDS(driveKP, driveKI, d, driveKs);
+          setPIDF(driveKP, driveKI, d, driveKs, driveKv);
         });
     builder.addDoubleProperty(
-        "S",
+        "DriveKs",
         this::getS,
         (double s) -> {
-          setPIDS(driveKP, driveKI, driveKD, s);
+          setPIDF(driveKP, driveKI, driveKD, s, driveKv);
         });
+    builder.addDoubleProperty(
+        "DriveKv",
+        this::getV,
+        (double v) -> {
+          setPIDF(driveKP, driveKI, driveKD, driveKs, v);
+        });
+      
   }
 
   // TunerConstants doesn't include these constants, so they are declared locally
@@ -411,14 +419,19 @@ public class Drive extends SubsystemBase {
     return driveKs;
   }
 
-  public void setPIDS(double p, double i, double d, double s) {
+  public double getV() {
+    return driveKv;
+  }
+
+  public void setPIDF(double p, double i, double d, double s, double v) {
     driveKD = d;
     driveKI = i;
     driveKP = p;
     driveKs = s;
+    driveKv = v;
 
     for (var module : modules) {
-      module.setPIDS(p, i, d, s);
+      module.setPIDF(p, i, d, s, v);
     }
   }
 }

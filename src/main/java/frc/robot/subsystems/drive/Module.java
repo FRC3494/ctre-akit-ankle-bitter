@@ -140,7 +140,7 @@ public class Module {
   }
 
   // feed PID values to io
-  public void setPIDS(double p, double i, double d, double s) {
-    io.setDrivePIDS(p, i, d, s);
+  public void setPIDF(double p, double i, double d, double s, double v) {
+    io.setDrivePIDF(p, i, d, s, v);
   }
 }

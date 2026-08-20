@@ -265,14 +265,14 @@ public class ModuleIOTalonFX implements ModuleIO {
   }
 
   @Override
-  public void setDrivePIDS(double p, double i, double d, double s) {
+  public void setDrivePIDF(double p, double i, double d, double s, double v) {
     TalonFXConfiguration config = new TalonFXConfiguration();
     config.Slot0 =
         new Slot0Configs()
             .withKP(p)
             .withKI(i)
             .withKD(d)
-            .withKS(s)
+            .withKS(s).withKV(v)
             .withStaticFeedforwardSign(StaticFeedforwardSignValue.UseVelocitySign);
     tryUntilOk(5, () -> driveTalon.getConfigurator().apply(config, 0.25));
   }
