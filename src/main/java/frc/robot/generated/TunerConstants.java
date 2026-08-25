@@ -33,10 +33,10 @@ public class TunerConstants {
   // output type specified by SwerveModuleConstants.DriveMotorClosedLoopOutput
   private static final Slot0Configs driveGains =
       new Slot0Configs()
-          .withKP(0)
-          .withKI(0)
-          .withKD(0)
-          .withKS(2.76)
+          .withKP(6.0)
+          .withKI(6.0)
+          .withKD(0.03)
+          .withKS(0)
           .withKV(0)
           .withStaticFeedforwardSign(StaticFeedforwardSignValue.UseClosedLoopSign);
 
