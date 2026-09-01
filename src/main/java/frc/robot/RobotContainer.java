@@ -142,6 +142,7 @@ public class RobotContainer {
     autoChooser = new AutoChooser();
 
     // Add options to the chooser
+    autoChooser.addRoutine("Drive In Triangle", this::driveInTriangle);
 
     // Put the auto chooser on the dashboard
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -197,5 +198,15 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+  public AutoRoutine driveInTriangle() {
+    AutoRoutine routine = autoFactory.newRoutine("triangle");
+
+    // Load the routine's trajectories
+    AutoTrajectory TrianglePath = routine.trajectory("TrianglePath");
+
+    // When the routine begins, reset odometry and start the first trajectory (1)
+    routine.active().onTrue(Commands.sequence(TrianglePath.resetOdometry(), TrianglePath.cmd()));
+
+    return routine;
   }
 }
