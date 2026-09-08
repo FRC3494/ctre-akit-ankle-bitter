@@ -5,6 +5,20 @@
  "variables":{
   "expressions":{},
   "poses":{
+   "Origin":{
+    "x":{
+     "exp":"5 m",
+     "val":5.0
+    },
+    "y":{
+     "exp":"0 m",
+     "val":0.0
+    },
+    "heading":{
+     "exp":"0 deg",
+     "val":0.0
+    }
+   },
    "startingPosition":{
     "x":{
      "exp":"3.547187089920044 m",
@@ -43,16 +57,16 @@
    }
   },
   "mass":{
-   "exp":"150 lbs",
-   "val":68.0388555
+   "exp":"28.682 kg",
+   "val":28.682
   },
   "inertia":{
    "exp":"6 kg m ^ 2",
    "val":6.0
   },
   "gearing":{
-   "exp":"6.5",
-   "val":6.5
+   "exp":"7.125",
+   "val":7.125
   },
   "radius":{
    "exp":"2 in",
@@ -63,8 +77,8 @@
    "val":628.3185307179587
   },
   "tmax":{
-   "exp":"1.2 N * m",
-   "val":1.2
+   "exp":"9.36 N * m",
+   "val":9.36
   },
   "cof":{
    "exp":"1.5",
@@ -91,7 +105,7 @@
  },
  "generationFeatures":[],
  "codegen":{
-  "root":"../C:/Users/olive/Documents/GitHub/ctre-akit-ankle-bitter/src/main/java/frc/robot/generated",
+  "root":"",
   "genVars":true,
   "genTrajData":true,
   "useChoreoLib":true
