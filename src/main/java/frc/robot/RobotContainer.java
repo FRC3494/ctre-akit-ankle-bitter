@@ -197,6 +197,9 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
                     drive)
                 .ignoringDisable(true));
+    SmartDashboard.putData(
+        "reset rotation",
+        Commands.runOnce(() -> drive.setRotation(Rotation2d.kZero), drive).ignoringDisable(true));
   }
 
   /**
