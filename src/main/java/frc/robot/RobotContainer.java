@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.commands.DriveCommands;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -42,6 +43,9 @@ public class RobotContainer {
 
   // AutoFactory
   private final AutoFactory autoFactory;
+
+  // Vision
+  private final Vision vision;
 
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -107,6 +111,8 @@ public class RobotContainer {
                 new ModuleIO() {});
         break;
     }
+
+    vision = new Vision(drive::addVisionMeasurement);
 
     autoFactory =
         new AutoFactory(
