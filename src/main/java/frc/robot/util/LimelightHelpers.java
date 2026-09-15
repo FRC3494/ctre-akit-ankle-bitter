@@ -1,6 +1,6 @@
 // LimelightHelpers v1.14 (REQUIRES LLOS 2026.0 OR LATER)
 
-package frc.robot;
+package frc.robot.util;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -21,8 +21,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
-import frc.robot.LimelightHelpers.LimelightResults;
-import frc.robot.LimelightHelpers.PoseEstimate;
+import frc.robot.util.LimelightHelpers.LimelightResults;
+import frc.robot.util.LimelightHelpers.PoseEstimate;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -12,6 +12,7 @@ import choreo.auto.AutoFactory;
 import choreo.auto.AutoRoutine;
 import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.commands.DriveCommands;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
@@ -42,6 +44,9 @@ public class RobotContainer {
 
   // AutoFactory
   private final AutoFactory autoFactory;
+
+  // Vision
+  private final Vision vision;
 
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -107,6 +112,14 @@ public class RobotContainer {
                 new ModuleIO() {});
         break;
     }
+
+    vision =
+        new Vision(
+            (poseEstimate, timestampSeconds) -> {
+              drive.addVisionMeasurement(
+                  poseEstimate, timestampSeconds, VecBuilder.fill(1.2, 1.2, 999999));
+            },
+            drive::getRotation);
 
     autoFactory =
         new AutoFactory(
@@ -181,9 +194,8 @@ public class RobotContainer {
     // Switch to X pattern when X button is pressed
     controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-    // Reset gyro to 0° when B button is pressed
     controller
-        .start()
+        .back()
         .onTrue(
             Commands.runOnce(
                     () ->
@@ -191,6 +203,9 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), Rotation2d.kZero)),
                     drive)
                 .ignoringDisable(true));
+    SmartDashboard.putData(
+        "reset rotation",
+        Commands.runOnce(() -> drive.setRotation(Rotation2d.kZero), drive).ignoringDisable(true));
   }
 
   /**
