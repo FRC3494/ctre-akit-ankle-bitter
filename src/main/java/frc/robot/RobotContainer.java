@@ -12,6 +12,7 @@ import choreo.auto.AutoFactory;
 import choreo.auto.AutoRoutine;
 import choreo.auto.AutoTrajectory;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -112,7 +113,13 @@ public class RobotContainer {
         break;
     }
 
-    vision = new Vision(drive::addVisionMeasurement);
+    vision =
+        new Vision(
+            (poseEstimate, timestampSeconds) -> {
+              drive.addVisionMeasurement(
+                  poseEstimate, timestampSeconds, VecBuilder.fill(1.2, 1.2, 999999));
+            },
+            drive::getRotation);
 
     autoFactory =
         new AutoFactory(
