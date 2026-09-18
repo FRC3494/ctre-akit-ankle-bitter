@@ -212,6 +212,10 @@ public class Drive extends SubsystemBase {
             sample.omega
                 + headingController.calculate(pose.getRotation().getRadians(), sample.heading));
 
+    Logger.recordOutput(
+        "Odometry/ChoreoSample",
+        new Pose2d(sample.x, sample.y, Rotation2d.fromRadians(sample.heading)));
+
     // Apply the generated speeds
     runVelocity(ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getRotation()));
   }
