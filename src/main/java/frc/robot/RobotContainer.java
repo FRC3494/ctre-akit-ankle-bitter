@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.VisionTestAuto;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.drive.Drive;
@@ -158,6 +159,7 @@ public class RobotContainer {
 
     // Add options to the chooser
     autoChooser.addRoutine("Drive In Triangle", this::driveInTriangle);
+    autoChooser.addRoutine(VisionTestAuto.name, () -> VisionTestAuto.getRoutine(autoFactory));
 
     // Put the auto chooser on the dashboard
     SmartDashboard.putData("Auto Chooser", autoChooser);
